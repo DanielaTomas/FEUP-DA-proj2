@@ -3,4 +3,4 @@ project(codigo)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(codigo main.cpp)
+add_executable(codigo main.cpp graph.cpp Utils.cpp Utils.h)
