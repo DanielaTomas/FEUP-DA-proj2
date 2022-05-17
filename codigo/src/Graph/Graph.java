@@ -10,17 +10,51 @@ import Utils.Utils;
 
 import java.util.*;
 
-class Graph {
+public class Graph {
 
-    private Map<Node, List<Node>> graph = new HashMap<>();
+    private final Map<Node, List<Node>> graph = new HashMap<>();
+    //private HashSet<Node> graphNodes = new HashSet<>();
 
-    public void addEdge(Node source, Node destination, boolean biDirectional) {
+    public Graph() {
 
-        //TODO: Criar edge
-        Edge edge = null;
+        try {
+            File myObj = new File("../dataset/Tests/in011.txt");
+            Scanner myReader = new Scanner(myObj);
+            String line = myReader.nextLine();
+
+            String[] values = Utils.parseLine(line);
+            int numNodes = Integer.parseInt(values[1]);
+
+            for(int i=0; i<numNodes; i++) {
+
+                line = myReader.nextLine();
+                values = Utils.parseLine(line);
+
+                Node source;
+                Node destination;
+
+                if((source = searchNode(Integer.parseInt(values[0]))) == null) {
+                    source = new Node(Integer.parseInt(values[0]));
+                }
+                if((destination = searchNode(Integer.parseInt(values[1]))) == null) {
+                    destination = new Node(Integer.parseInt(values[1]));
+                }
+
+                addEdge(source, destination, Integer.parseInt(values[2]), Integer.parseInt(values[3]), false);
+            }
+            myReader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    public void addEdge(Node source, Node destination, int duration, int capacity, boolean biDirectional) {
+
+        Edge edge = new Edge(source, destination, duration, capacity);
+        source.addOutgoingEdge(edge);
 
         if (!graph.containsKey(source)) {
-            source.addOutgoingEdge(edge);
             addNode(source);
         }
 
@@ -51,12 +85,15 @@ class Graph {
     }
 
     public String printGraph() {
+
+        System.out.println(this.graph.size());
+
         StringBuilder builder = new StringBuilder();
 
-        for(Node vertex : graph.keySet()) {
-            builder.append(vertex.toString() + ": ");
-            for(Node node: graph.get(vertex)) {
-                builder.append(node.toString() + " ");
+        for(Node node : graph.keySet()) {
+            builder.append(node.getValue() + ": ");
+            for(Node _node: graph.get(node)) {
+                builder.append(_node.getValue() + " ");
             }
             builder.append("\n");
         }
@@ -64,6 +101,27 @@ class Graph {
     }
 
     private void addNode(Node vertex) {
-        graph.put(vertex, new LinkedList<Node>());
+        graph.put(vertex, new LinkedList<>());
+    }
+
+    public void printEdges() {
+
+        for(Node node : this.graph.keySet()) {
+            System.out.println(">>" + node.getValue());
+            for(int i=0; i<node.getOutgoingEdges().size(); i++) {
+                System.out.println(node.getOutgoingEdges().get(i).getDest().getValue());
+            }
+            System.out.println("=============");
+        }
+    }
+
+    public Node searchNode(int val) {
+
+        for(Node node: this.graph.keySet()) {
+            if(node.getValue() == val) {
+                return node;
+            }
+        }
+        return null;
     }
 }
