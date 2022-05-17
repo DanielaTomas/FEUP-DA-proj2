@@ -17,6 +17,8 @@ public class Utils {
         PriorityQueue<Node> maxQueue = new PriorityQueue<>();
 
         maxQueue.add(graph.getNodes().get(0));
+        graph.getNodes().get(0).setCapacity(Integer.MAX_VALUE);
+
         while(!maxQueue.isEmpty()) {
             Node currentNode = maxQueue.poll();
             for(Edge edge : currentNode.getOutgoingEdges()) {
