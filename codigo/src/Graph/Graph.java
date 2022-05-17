@@ -13,7 +13,7 @@ import java.util.*;
 public class Graph {
 
     private final Map<Node, List<Node>> graph = new HashMap<>();
-    //private HashSet<Node> graphNodes = new HashSet<>();
+    private final ArrayList<Node> nodes = new ArrayList<>();
 
     public Graph() {
 
@@ -47,6 +47,7 @@ public class Graph {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
+        this.nodes.addAll(this.graph.keySet());
     }
 
     public void addEdge(Node source, Node destination, int duration, int capacity, boolean biDirectional) {
@@ -123,5 +124,13 @@ public class Graph {
             }
         }
         return null;
+    }
+
+    public Map<Node, List<Node>> getGraph() {
+        return graph;
+    }
+
+    public ArrayList<Node> getNodes() {
+        return nodes;
     }
 }

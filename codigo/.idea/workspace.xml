@@ -96,14 +96,15 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/Application.java</url>
-          <line>13</line>
-          <option name="timeStamp" value="5" />
+          <line>19</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="graph.entrySet().toArray()[3]" />
+        <watch expression="((HashMap)graph.graph).entrySet().toArray()[7]" custom="java.util.HashMap" />
       </configuration>
     </watches-manager>
   </component>

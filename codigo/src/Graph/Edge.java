@@ -3,7 +3,7 @@ package Graph;
 
 import java.util.Objects;
 
-class Edge {
+public class Edge {
     private Node src;
     private Node dest;
     private int duration;
@@ -42,12 +42,20 @@ class Edge {
         this.capacity = capacity;
     }
 
+    public void setFlow(int flow) {
+        this.flow = flow;
+    }
+
     public void setSrc(Node src) {
         this.src = src;
     }
 
     public void setDest(Node dest) {
         this.dest = dest;
+    }
+
+    public void addFatherNodeToDestNode(Node fatherNode) {
+        this.dest.setFatherNode(fatherNode);
     }
 
     @Override

@@ -3,12 +3,16 @@ package Graph;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Node {
+public class Node implements Comparable {
     private int value;
+    private int capacity;
     private ArrayList<Edge> outgoingEdges = new ArrayList<>();
+    private Node fatherNode;
 
     public Node(int value) {
         this.value = value;
+        this.capacity = 0;
+        this.fatherNode = null;
     }
 
     public void addOutgoingEdge(Edge edge)  {
@@ -23,6 +27,18 @@ public class Node {
         return outgoingEdges;
     }
 
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
+    }
+
+    public void setFatherNode(Node fatherNode) {
+        this.fatherNode = fatherNode;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -34,5 +50,11 @@ public class Node {
     @Override
     public int hashCode() {
         return Objects.hash(value);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Node node = (Node) o;
+        return Integer.compare(this.capacity, node.capacity);
     }
 }
