@@ -19,17 +19,9 @@ public class Application {
         Graph graph = new Graph();
         ArrayList<Node> path = new ArrayList<>();
 
-        Utils.CaminhosCapacidadeMaxima(graph, path);
+        int maxPeople = Utils.CaminhosCapacidadeMaxima(graph, path);
 
-        int maxPeople = 0;
-        for(Node node : path) {
-            for(Edge edge: node.getOutgoingEdges()) {
-                if(edge.getDest().getFatherNode().equals(node)
-                && node.getCapacity() > maxPeople) {
-                    maxPeople = edge.getCapacity();
-                }
-            }
-        }
+
 
         System.out.println("Máximo número de pessoas que podem fazer a viagem: " + maxPeople);
         System.out.println("Caminho que amigos fazem para chegar ao destino: " + path);

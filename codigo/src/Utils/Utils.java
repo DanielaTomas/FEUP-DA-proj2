@@ -14,7 +14,7 @@ public class Utils {
     }
 
     //TODO: Ha uns problemas aqui.
-    public static void CaminhosCapacidadeMaxima(Graph graph, ArrayList<Node> path) {
+    public static int CaminhosCapacidadeMaxima(Graph graph, ArrayList<Node> path) {
 
         PriorityQueue<Node> maxQueue = new PriorityQueue<>();
 
@@ -35,14 +35,24 @@ public class Utils {
         ArrayList<Node> nodesAux = graph.getNodes();
         Collections.reverse(nodesAux);
 
-        Node curerntNode = nodesAux.get(0);
-        path.add(curerntNode);
+        Node currentNode = nodesAux.get(0);
+        Node lastNode = currentNode;
+        path.add(currentNode);
 
-        while(curerntNode.getFatherNode() != null) {
-            curerntNode = curerntNode.getFatherNode();
-            path.add(curerntNode);
+        int maxPeople = Integer.MAX_VALUE;
+        while(currentNode.getFatherNode() != null) {
+            lastNode = currentNode;
+            currentNode = currentNode.getFatherNode();
+            path.add(currentNode);
+            for(Edge edge : currentNode.getOutgoingEdges()) {
+                if(edge.getDest().equals(lastNode)
+                        && maxPeople > edge.getCapacity()) {
+                    maxPeople = edge.getCapacity();
+                }
+            }
         }
 
         Collections.reverse(path);
+        return maxPeople;
     }
 }

@@ -18,7 +18,7 @@ public class Graph {
     public Graph() {
 
         try {
-            File myObj = new File("../dataset/Tests/in011.txt");
+            File myObj = new File("../dataset/Tests/test.txt");
             Scanner myReader = new Scanner(myObj);
             String line = myReader.nextLine();
 
@@ -50,9 +50,9 @@ public class Graph {
         this.nodes.addAll(this.graph.keySet());
     }
 
-    public void addEdge(Node source, Node destination, int duration, int capacity, boolean biDirectional) {
+    public void addEdge(Node source, Node destination, int capacity, int duration, boolean biDirectional) {
 
-        Edge edge = new Edge(source, destination, duration, capacity);
+        Edge edge = new Edge(source, destination, capacity, duration);
         source.addOutgoingEdge(edge);
 
         if (!graph.containsKey(source)) {

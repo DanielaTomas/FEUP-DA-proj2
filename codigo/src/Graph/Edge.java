@@ -10,7 +10,7 @@ public class Edge {
     private int flow;
     private int capacity;
 
-    public Edge(Node src, Node dest, int duration, int capacity) {
+    public Edge(Node src, Node dest, int capacity, int duration) {
         this.src = src;
         this.dest = dest;
         this.duration = duration;

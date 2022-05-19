@@ -3,7 +3,7 @@ package Graph;
 import java.util.ArrayList;
 import java.util.Objects;
 
-public class Node implements Comparable {
+public class Node implements Comparable<Node> {
     private int value;
     private int capacity;
     private ArrayList<Edge> outgoingEdges = new ArrayList<>();
@@ -61,9 +61,15 @@ public class Node implements Comparable {
         return Objects.hash(value);
     }
 
+
     @Override
-    public int compareTo(Object o) {
-        Node node = (Node) o;
-        return Integer.compare(this.capacity, node.capacity);
+    public int compareTo(Node node) {
+        if(this.getCapacity() < node.getCapacity()) {
+            return 1;
+        } else if (this.getCapacity() > node.getCapacity()) {
+            return -1;
+        } else {
+            return 0;
+        }
     }
 }
