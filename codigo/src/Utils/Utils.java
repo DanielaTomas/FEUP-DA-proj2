@@ -2,7 +2,9 @@ package Utils;
 
 import Graph.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.PriorityQueue;
 
 public class Utils {
@@ -29,5 +31,18 @@ public class Utils {
                 }
             }
         }
+
+        ArrayList<Node> nodesAux = graph.getNodes();
+        Collections.reverse(nodesAux);
+
+        Node curerntNode = nodesAux.get(0);
+        path.add(curerntNode);
+
+        while(curerntNode.getFatherNode() != null) {
+            curerntNode = curerntNode.getFatherNode();
+            path.add(curerntNode);
+        }
+
+        Collections.reverse(path);
     }
 }

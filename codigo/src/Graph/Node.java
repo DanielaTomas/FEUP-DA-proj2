@@ -39,6 +39,15 @@ public class Node implements Comparable {
         return capacity;
     }
 
+    public Node getFatherNode() {
+        return fatherNode;
+    }
+
+    @Override
+    public String toString() {
+        return "Node(" + value + ")";
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
