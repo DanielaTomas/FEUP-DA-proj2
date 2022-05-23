@@ -17,36 +17,7 @@ public class Graph {
 
     public Graph() {
 
-        try {
-            File myObj = new File("../dataset/Tests/test.txt");
-            Scanner myReader = new Scanner(myObj);
-            String line = myReader.nextLine();
 
-            String[] values = Utils.parseLine(line);
-            int numNodes = Integer.parseInt(values[1]);
-
-            for(int i=0; i<numNodes; i++) {
-
-                line = myReader.nextLine();
-                values = Utils.parseLine(line);
-
-                Node source;
-                Node destination;
-
-                if((source = searchNode(Integer.parseInt(values[0]))) == null) {
-                    source = new Node(Integer.parseInt(values[0]));
-                }
-                if((destination = searchNode(Integer.parseInt(values[1]))) == null) {
-                    destination = new Node(Integer.parseInt(values[1]));
-                }
-
-                addEdge(source, destination, Integer.parseInt(values[2]), Integer.parseInt(values[3]), false);
-            }
-            myReader.close();
-        } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
-        }
         this.nodes.addAll(this.graph.keySet());
     }
 
@@ -132,5 +103,48 @@ public class Graph {
 
     public ArrayList<Node> getNodes() {
         return nodes;
+    }
+
+    public void addNodeToArray(Node node) {
+        this.nodes.add(node);
+    }
+
+    public Edge getEdge(Node source, Node dest) {
+
+        for(Edge edge : source.getOutgoingEdges()) {
+            if(edge.getDest().equals(dest)) {
+                return edge;
+            }
+        }
+        return null;
+    }
+
+    public void createResidualGraph(Graph residualGraph) {
+
+        for(Node source: this.getGraph().keySet()) {
+            for(Node dest : this.getGraph().get(source)) {
+                Edge edge = this.getEdge(source, dest);
+                if(edge != null) {
+
+                    Node rSource;
+                    Node rDest;
+
+                    if((rDest = residualGraph.searchNode(source.getValue())) == null) {
+                        rDest = new Node(source.getValue());
+                    }
+                    if((rSource = residualGraph.searchNode(dest.getValue())) == null) {
+                        rSource = new Node(dest.getValue());
+                    }
+
+                    residualGraph.addEdge(rSource, rDest, edge.getCapacity(), edge.getDuration(), false);
+                    Edge resisualEdge = residualGraph.getEdge(rSource, rDest);
+                    resisualEdge.setFlow(resisualEdge.getCapacity());
+                }
+            }
+        }
+
+        for(Node node : this.getGraph().keySet()) {
+            residualGraph.addNodeToArray(node);
+        }
     }
 }

@@ -19,6 +19,8 @@ public class Application {
         Graph graph = new Graph();
         ArrayList<Node> path = new ArrayList<>();
 
+        Utils.readFromFile(graph);
+
         int maxPeople = Utils.CaminhosCapacidadeMaxima(graph, path);
 
         System.out.println("Máximo número de pessoas que podem fazer a viagem: " + maxPeople);
@@ -28,12 +30,13 @@ public class Application {
     public static void secondScenery(int numPersonsGroup) {
 
         Graph graph = new Graph();
+        Graph rGraph = new Graph();
         ArrayList<Node> path = new ArrayList<>();
+
+        Utils.readFromFile(graph);
 
         System.out.println(Utils.BFS(graph));
 
-        //System.out.println("fefwefew");
-
-
+        graph.createResidualGraph(rGraph);
     }
 }

@@ -8,6 +8,7 @@ public class Node implements Comparable<Node> {
     private int capacity;
     private ArrayList<Edge> outgoingEdges = new ArrayList<>();
     private Node fatherNode;
+    private Edge pred;
     private boolean visited = false;
 
     public Node(int value) {
