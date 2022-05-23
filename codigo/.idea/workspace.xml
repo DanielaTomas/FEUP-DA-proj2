@@ -9,8 +9,6 @@
     <list default="true" id="90cabfe2-c5f6-44e8-8dee-af9865dd39c7" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Application.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graph/Edge.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graph/Edge.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Graph/Graph.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graph/Graph.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Graph/Node.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graph/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Utils/Utils.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Utils.java" afterDir="false" />
     </list>
@@ -92,10 +90,16 @@
     </option>
   </component>
   <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Graph.Node" memberName="outgoingEdges" />
+      </pinned-members>
+    </pin-to-top-manager>
     <watches-manager>
       <configuration name="Application">
         <watch expression="graph.entrySet().toArray()[3]" />
         <watch expression="((HashMap)graph.graph).entrySet().toArray()[7]" custom="java.util.HashMap" />
+        <watch expression="graph.nodes.get(2).outgoingEdges" />
       </configuration>
     </watches-manager>
   </component>

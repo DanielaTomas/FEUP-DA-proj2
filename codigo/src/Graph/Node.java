@@ -8,10 +8,10 @@ public class Node implements Comparable<Node> {
     private int capacity;
     private ArrayList<Edge> outgoingEdges = new ArrayList<>();
     private Node fatherNode;
+    private boolean visited = false;
 
     public Node(int value) {
         this.value = value;
-        this.capacity = 0;
         this.fatherNode = null;
     }
 
@@ -41,6 +41,14 @@ public class Node implements Comparable<Node> {
 
     public Node getFatherNode() {
         return fatherNode;
+    }
+
+    public boolean isVisited() {
+        return visited;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 
     @Override

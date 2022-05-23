@@ -3,9 +3,7 @@ package Utils;
 import Graph.*;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.PriorityQueue;
+import java.util.*;
 
 public class Utils {
 
@@ -17,6 +15,10 @@ public class Utils {
     public static int CaminhosCapacidadeMaxima(Graph graph, ArrayList<Node> path) {
 
         PriorityQueue<Node> maxQueue = new PriorityQueue<>();
+
+        for(Node node : graph.getNodes()) {
+            node.setCapacity(0);
+        }
 
         maxQueue.add(graph.getNodes().get(0));
         graph.getNodes().get(0).setCapacity(Integer.MAX_VALUE);
@@ -36,7 +38,7 @@ public class Utils {
         Collections.reverse(nodesAux);
 
         Node currentNode = nodesAux.get(0);
-        Node lastNode = currentNode;
+        Node lastNode;
         path.add(currentNode);
 
         int maxPeople = Integer.MAX_VALUE;
@@ -54,5 +56,34 @@ public class Utils {
 
         Collections.reverse(path);
         return maxPeople;
+    }
+
+    public static ArrayList<Node> BFS(Graph graph) {
+
+        ArrayList<Node> path = new ArrayList<>();
+        LinkedList<Node> nodes = new LinkedList<>();
+
+        nodes.add(graph.getNodes().get(0));
+        graph.getNodes().get(0).setVisited(true);
+        while(!nodes.isEmpty()) {
+            Node currentNode = nodes.poll();
+            for(Node children : graph.getGraph().get(currentNode)) {
+                if(!children.isVisited()) {
+                    children.setFatherNode(currentNode);
+                    children.setVisited(true);
+                    nodes.add(children);
+                }
+            }
+        }
+
+        Node currentNode = graph.getNodes().get(graph.getNodes().size()-1);
+        while(currentNode != null){
+            path.add(currentNode);
+            currentNode = currentNode.getFatherNode();
+        }
+
+        Collections.reverse(path);
+
+        return path;
     }
 }
