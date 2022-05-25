@@ -9,6 +9,7 @@ public class Edge {
     private int duration;
     private int flow;
     private int capacity;
+    private boolean visited;
 
     public Edge(Node src, Node dest, int capacity, int duration) {
         this.src = src;
@@ -16,6 +17,7 @@ public class Edge {
         this.duration = duration;
         this.capacity = capacity;
         this.flow = 0;
+        this.visited = false;
     }
 
     public Node getSrc() {
@@ -32,6 +34,10 @@ public class Edge {
 
     public int getCapacity() {
         return capacity;
+    }
+
+    public boolean isVisited() {
+        return visited;
     }
 
     public void setDuration(int duration) {
@@ -52,6 +58,10 @@ public class Edge {
 
     public void setDest(Node dest) {
         this.dest = dest;
+    }
+
+    public void setVisited(boolean visited) {
+        this.visited = visited;
     }
 
     public void addFatherNodeToDestNode(Node fatherNode) {

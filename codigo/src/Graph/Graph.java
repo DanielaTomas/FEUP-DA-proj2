@@ -16,8 +16,6 @@ public class Graph {
     private final ArrayList<Node> nodes = new ArrayList<>();
 
     public Graph() {
-
-
         this.nodes.addAll(this.graph.keySet());
     }
 
@@ -137,8 +135,12 @@ public class Graph {
                     }
 
                     residualGraph.addEdge(rSource, rDest, edge.getCapacity(), edge.getDuration(), false);
+                    //residualGraph.addEdge(rDest, rSource, edge.getCapacity(), edge.getDuration(), false);
                     Edge resisualEdge = residualGraph.getEdge(rSource, rDest);
                     resisualEdge.setFlow(resisualEdge.getCapacity());
+
+                    //Edge residualEdge = residualGraph.getEdge(rDest, rSource);
+                    //residualEdge.setFlow();
                 }
             }
         }
