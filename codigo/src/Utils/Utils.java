@@ -45,9 +45,8 @@ public class Utils {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
-        for(Node node : graph.getGraph().keySet()) {
-            graph.addNodeToArray(node);
-        }
+
+        graph.addNodesToList();
     }
 
     public static int calculateMaxFlowPath(Graph graph, ArrayList<Node> path) {
@@ -99,24 +98,6 @@ public class Utils {
         return calculateMaxFlowPath(graph, path);
     }
 
-    public static int Edmonds_Karp(Graph graph) {
-
-        Graph rGraph = new Graph();
-        int maxFlow = 0;
-        ArrayList<Node> path;
-
-        /*
-        while((path = BFS(graph)).get(path.size()-1).equals(graph.getNodes().get(graph.getNodes().size()-1))) {
-
-            for(Node node : path) {
-
-            }
-
-        }
-        */
-        return maxFlow;
-    }
-
     public static void setVisitedEdges(Graph graph, ArrayList<Node> path) {
 
         Node lastNode = path.get(0);
@@ -125,106 +106,5 @@ public class Utils {
             edge.setVisited(true);
             lastNode = path.get(i);
         }
-
-    }
-
-    public static boolean isNotVisited(Node node, ArrayList<Node> path) {
-
-        for(Node _node: path) {
-            if(_node.equals(node)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-    /*
-    public static void findPaths(Graph graph) {
-
-        ArrayList<ArrayList<Node>> paths = new ArrayList<>();
-
-        Queue<ArrayList<Node>> queue_path = new LinkedList<>();
-        ArrayList<Node> path = new ArrayList<>();
-
-        Node src = graph.getNodes().get(0);
-        Node dest = graph.getNodes().get(graph.getNodes().size()-1);
-        path.add(src);
-        queue_path.offer(path);
-
-        while(!queue_path.isEmpty()) {
-            path = queue_path.poll();
-            Node last = path.get(path.size()-1);
-
-            if(last.equals(dest)) {
-                System.out.println(path);
-            }
-
-            List<Node> lastNode = graph.getGraph().get(last);
-            for(Node node: lastNode) {
-                if(isNotVisited(node, path)) {
-                    ArrayList<Node> newpath = new ArrayList<>(path);
-                    newpath.add(node);
-                    queue_path.offer(newpath);
-                }
-            }
-        }
-    }
-    */
-
-
-    public static Pair<ArrayList<Node>, Integer> BFS(Graph graph) {
-
-        ArrayList<Node> path = new ArrayList<>();
-        LinkedList<Node> queue = new LinkedList<>();
-
-        queue.add(graph.getNodes().get(0));
-        graph.getNodes().get(0).setVisited(true);
-        while(!queue.isEmpty()) {
-            Node currentNode = queue.poll();
-            for(Node child : graph.getGraph().get(currentNode)) {
-                if(!child.isVisited()) {
-                    child.setFatherNode(currentNode);
-                    child.setVisited(true);
-                    queue.add(child);
-                }
-            }
-        }
-
-        int maxP = calculateMaxFlowPath(graph, path);
-
-        return new Pair<>(path, maxP);
-    }
-
-    public static Pair<ArrayList<Node>, Integer> BFS_N(Graph graph) {
-
-        ArrayList<Node> path = new ArrayList<>();
-        LinkedList<Node> queue = new LinkedList<>();
-
-        for(Node node : graph.getNodes()) {
-            node.setVisited(false);
-            node.setFatherNode(null);
-        }
-
-        queue.add(graph.getNodes().get(0));
-        graph.getNodes().get(0).setVisited(true);
-        while(!queue.isEmpty()) {
-            Node currentNode = queue.poll();
-            //System.out.println(currentNode);
-            for(Node child : graph.getGraph().get(currentNode)) {
-                if(graph.getEdge(currentNode, child).isVisited()) {
-                    continue;
-                }
-                if(!child.isVisited()) {
-                    child.setFatherNode(currentNode);
-                    child.setVisited(true);
-                    queue.add(child);
-                }
-            }
-        }
-
-        int maxP = calculateMaxFlowPath(graph, path);
-        setVisitedEdges(graph, path);
-
-        return new Pair<>(path, maxP);
     }
 }

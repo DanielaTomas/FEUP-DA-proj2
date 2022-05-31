@@ -64,6 +64,14 @@ public class Edge {
         this.visited = visited;
     }
 
+    public void decreaseFlow(int flow) {
+        this.flow -= flow;
+    }
+
+    public void increaseFlow(int flow) {
+        this.flow += flow;
+    }
+
     public void addFatherNodeToDestNode(Node fatherNode) {
         this.dest.setFatherNode(fatherNode);
     }

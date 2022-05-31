@@ -15,10 +15,6 @@ public class Graph {
     private final Map<Node, List<Node>> graph = new HashMap<>();
     private final ArrayList<Node> nodes = new ArrayList<>();
 
-    public Graph() {
-        this.nodes.addAll(this.graph.keySet());
-    }
-
     public void addEdge(Node source, Node destination, int capacity, int duration, boolean biDirectional) {
 
         Edge edge = new Edge(source, destination, capacity, duration);
@@ -36,6 +32,10 @@ public class Graph {
         if(biDirectional) {
             graph.get(destination).add(source);
         }
+    }
+
+    public void addNodesToList() {
+        this.nodes.addAll(this.graph.keySet());
     }
 
     public void hasVertex(Node vertex) {
@@ -135,18 +135,17 @@ public class Graph {
                     }
 
                     residualGraph.addEdge(rSource, rDest, edge.getCapacity(), edge.getDuration(), false);
-                    //residualGraph.addEdge(rDest, rSource, edge.getCapacity(), edge.getDuration(), false);
-                    Edge resisualEdge = residualGraph.getEdge(rSource, rDest);
-                    resisualEdge.setFlow(resisualEdge.getCapacity());
+                    residualGraph.addEdge(rDest, rSource, edge.getCapacity(), edge.getDuration(), false);
 
-                    //Edge residualEdge = residualGraph.getEdge(rDest, rSource);
-                    //residualEdge.setFlow();
+                    Edge prevCurr = getEdge(rSource, rDest);
+                    prevCurr.setFlow(edge.getCapacity());
+
+                    Edge currPrev = getEdge(rDest, rSource);
+                    currPrev.setFlow(0);
                 }
             }
         }
 
-        for(Node node : this.getGraph().keySet()) {
-            residualGraph.addNodeToArray(node);
-        }
+        residualGraph.addNodesToList();
     }
 }

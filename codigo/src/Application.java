@@ -11,7 +11,7 @@ public class Application {
 
     public static void main(String[] args) {
 
-        firstScenery();
+        secondScenery(5);
     }
 
     public static void firstScenery() {
@@ -23,10 +23,11 @@ public class Application {
         Utils.readFromFile(graph);
 
         int maxPeople = Utils.CaminhosCapacidadeMaxima(graph, maxCpacityPath);
-        Pair<ArrayList<Node>, Integer> solution = Utils.BFS_N(graph);
+        Pair<ArrayList<Node>, Integer> solution = Algorithms.BFS_N(graph);
         solutions.add(solution);
-        while(solution.getV1().size() < maxCpacityPath.size()) {
-            solution = Utils.BFS_N(graph);
+        while(true) {
+            if (!(solution.getV1().size() < maxCpacityPath.size())) break;
+            solution = Algorithms.BFS_N(graph);
             if(solution.getV1().size() <= 1) {
                 break;
             }
@@ -44,14 +45,11 @@ public class Application {
 
         Graph graph = new Graph();
         Graph rGraph = new Graph();
-        ArrayList<Node> path = new ArrayList<>();
 
         Utils.readFromFile(graph);
-
-        //System.out.println(Utils.BFS(graph));
-
         graph.createResidualGraph(rGraph);
 
-        System.out.println("fefewfew");
+        System.out.println(Algorithms.Edmonds_Karp(rGraph));
+
     }
 }
