@@ -137,10 +137,10 @@ public class Graph {
                     residualGraph.addEdge(rSource, rDest, edge.getCapacity(), edge.getDuration(), false);
                     residualGraph.addEdge(rDest, rSource, edge.getCapacity(), edge.getDuration(), false);
 
-                    Edge prevCurr = getEdge(rSource, rDest);
+                    Edge prevCurr = getEdge(rDest, rSource);
                     prevCurr.setFlow(edge.getCapacity());
 
-                    Edge currPrev = getEdge(rDest, rSource);
+                    Edge currPrev = getEdge(rSource, rDest);
                     currPrev.setFlow(0);
                 }
             }

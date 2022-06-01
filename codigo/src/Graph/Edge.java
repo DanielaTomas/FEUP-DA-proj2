@@ -36,6 +36,10 @@ public class Edge {
         return capacity;
     }
 
+    public int getFlow() {
+        return flow;
+    }
+
     public boolean isVisited() {
         return visited;
     }

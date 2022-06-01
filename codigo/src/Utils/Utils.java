@@ -54,9 +54,10 @@ public class Utils {
         Node currentNode = graph.getNodes().get(graph.getNodes().size()-1);
         Node lastNode;
         path.add(currentNode);
+        Node finalNode = graph.getNodes().get(0);
 
         int maxPeople = Integer.MAX_VALUE;
-        while(currentNode.getFatherNode() != null) {
+        while(!currentNode.equals(finalNode)) {
             lastNode = currentNode;
             currentNode = currentNode.getFatherNode();
             path.add(currentNode);
