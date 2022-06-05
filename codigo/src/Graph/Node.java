@@ -3,6 +3,7 @@ package Graph;
 import java.util.ArrayList;
 import java.util.Objects;
 
+//! Class Node
 public class Node implements Comparable<Node> {
     private int value;
     private int capacity;
@@ -10,52 +11,78 @@ public class Node implements Comparable<Node> {
     private Node fatherNode;
     private boolean visited = false;
 
+    //! Constructor
+    //!
+    //! \param node value
     public Node(int value) {
         this.value = value;
         this.fatherNode = null;
     }
 
+    //! Add outgoing edge
+    //!
+    //! \param edge
     public void addOutgoingEdge(Edge edge)  {
         this.outgoingEdges.add(edge);
     }
-
+    //! Get node value
+    //!
+    //! \param node value
     public int getValue() {
         return value;
     }
-
+    //! Get outgoing edge
+    //!
+    //! \return arraylist with outgoing edges
     public ArrayList<Edge> getOutgoingEdges() {
         return outgoingEdges;
     }
-
+    //! Get capacity
+    //!
+    //! \param capacity
     public void setCapacity(int capacity) {
         this.capacity = capacity;
     }
-
+    //! Set father node
+    //!
+    //! \param father node
     public void setFatherNode(Node fatherNode) {
         this.fatherNode = fatherNode;
     }
-
+    //! Get capacity
+    //!
+    //! \return capacity
     public int getCapacity() {
         return capacity;
     }
-
+    //! Get father node
+    //!
+    //! \return father node
     public Node getFatherNode() {
         return fatherNode;
     }
-
+    //! Check if the node has been visited
+    //!
+    //! \return corresponding bool
     public boolean isVisited() {
         return visited;
     }
-
+    //! Set node as visited or not visited
+    //!
+    //! \param corresponding bool
     public void setVisited(boolean visited) {
         this.visited = visited;
     }
-
+    //! Node to string
+    //!
+    //! \return string
     @Override
     public String toString() {
         return "Node(" + value + ")";
     }
-
+    //! Compares two node values
+    //!
+    //! \return corresponding bool
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -63,13 +90,16 @@ public class Node implements Comparable<Node> {
         Node node = (Node) o;
         return value == node.value;
     }
-
+    //! Returns value for the object
+    //!
+    //! \return corresponding integer
     @Override
     public int hashCode() {
         return Objects.hash(value);
     }
-
-
+    //! Compares two nodes
+    //!
+    //! \return 0 if the capacities of the nodes are equal, -1 if it is less than the capacity of the other node and 1 if it is greater
     @Override
     public int compareTo(Node node) {
         if(this.getCapacity() < node.getCapacity()) {

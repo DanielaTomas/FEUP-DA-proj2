@@ -4,15 +4,22 @@ import Graph.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.lang.reflect.Array;
 import java.util.*;
 
+//! Class Utils
 public class Utils {
 
+    //! Breaks a given string into an array of substrings. Spaces are the delimiter
+    //!
+    //! \param line
+    //! \return parsed line
     public static String[] parseLine(String line) {
         return line.split(" ");
     }
 
+    //! Read file information
+    //!
+    //! \param graph
     public static void readFromFile(Graph graph) {
 
         try {
@@ -49,6 +56,11 @@ public class Utils {
         graph.addNodesToList();
     }
 
+    //! Calculate max flow path
+    //!
+    //! \param graph
+    //! \param path
+    //! \return flow
     public static int calculateMaxFlowPath(Graph graph, ArrayList<Node> path) {
 
         Node currentNode = graph.getNodes().get(graph.getNodes().size()-1);
@@ -57,9 +69,14 @@ public class Utils {
         Node finalNode = graph.getNodes().get(0);
 
         int maxPeople = Integer.MAX_VALUE;
+
+
         while(!currentNode.equals(finalNode)) {
             lastNode = currentNode;
             currentNode = currentNode.getFatherNode();
+            if(currentNode == null) {
+                break;
+            }
             path.add(currentNode);
             for(Edge edge : currentNode.getOutgoingEdges()) {
                 if(edge.getDest().equals(lastNode)
@@ -68,12 +85,16 @@ public class Utils {
                 }
             }
         }
-
         Collections.reverse(path);
 
         return maxPeople;
     }
 
+    //! Maximum capacity path
+    //!
+    //! \param graph
+    //! \param path
+    //! \return flow
     public static int CaminhosCapacidadeMaxima(Graph graph, ArrayList<Node> path) {
 
         PriorityQueue<Node> maxQueue = new PriorityQueue<>();
@@ -99,10 +120,14 @@ public class Utils {
         return calculateMaxFlowPath(graph, path);
     }
 
+    //! Set visited edges
+    //!
+    //! \param graph
+    //! \param path
     public static void setVisitedEdges(Graph graph, ArrayList<Node> path) {
 
         Node lastNode = path.get(0);
-        for(int i=1; i<path.size(); i++) {
+        for (int i = 1; i < path.size(); i++) {
             Edge edge = graph.getEdge(lastNode, path.get(i));
             edge.setVisited(true);
             lastNode = path.get(i);
