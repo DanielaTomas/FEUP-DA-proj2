@@ -54,7 +54,7 @@ public class Utils {
         Node currentNode = graph.getNodes().get(graph.getNodes().size()-1);
         Node lastNode;
         path.add(currentNode);
-        Node finalNode = graph.getNodes().get(0);
+        Node finalNode = graph.getNodes().get(1);
 
         int maxPeople = Integer.MAX_VALUE;
         while(!currentNode.equals(finalNode)) {
@@ -74,31 +74,6 @@ public class Utils {
         return maxPeople;
     }
 
-    public static int CaminhosCapacidadeMaxima(Graph graph, ArrayList<Node> path) {
-
-        PriorityQueue<Node> maxQueue = new PriorityQueue<>();
-
-        for(Node node : graph.getNodes()) {
-            node.setCapacity(0);
-        }
-
-        maxQueue.add(graph.getNodes().get(0));
-        graph.getNodes().get(0).setCapacity(Integer.MAX_VALUE);
-
-        while(!maxQueue.isEmpty()) {
-            Node currentNode = maxQueue.poll();
-            for(Edge edge : currentNode.getOutgoingEdges()) {
-                if(Math.min(currentNode.getCapacity(), edge.getCapacity()) > edge.getDest().getCapacity()) {
-                    edge.getDest().setCapacity(Math.min(currentNode.getCapacity(), edge.getCapacity()));
-                    edge.addFatherNodeToDestNode(currentNode);
-                    maxQueue.add(edge.getDest());
-                }
-            }
-        }
-
-        return calculateMaxFlowPath(graph, path);
-    }
-
     public static void setVisitedEdges(Graph graph, ArrayList<Node> path) {
 
         Node lastNode = path.get(0);
@@ -107,5 +82,9 @@ public class Utils {
             edge.setVisited(true);
             lastNode = path.get(i);
         }
+    }
+
+    public int comparator(Node n1, Node n2) {
+        return n1.getValue() - n2.getValue();
     }
 }

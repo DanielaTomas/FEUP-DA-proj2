@@ -5,13 +5,13 @@ import Graph.*;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.PriorityQueue;
 import java.util.Queue;
 
 import static Utils.Utils.calculateMaxFlowPath;
 import static Utils.Utils.setVisitedEdges;
 
 public class Algorithms {
-
 
     public static Pair<ArrayList<Node>, Integer> BFS(Graph graph) {
 
@@ -42,7 +42,6 @@ public class Algorithms {
                }
             }
         }
-
 
         return new Pair<ArrayList<Node>, Integer>(new ArrayList<>(), 0);
     }
@@ -107,5 +106,30 @@ public class Algorithms {
         }
 
         return maxFlow;
+    }
+
+    public static int CaminhosCapacidadeMaxima(Graph graph, ArrayList<Node> path) {
+
+        PriorityQueue<Node> maxQueue = new PriorityQueue<>();
+
+        for(Node node : graph.getNodes()) {
+            node.setCapacity(0);
+        }
+
+        maxQueue.add(graph.getNodes().get(0));
+        graph.getNodes().get(0).setCapacity(Integer.MAX_VALUE);
+
+        while(!maxQueue.isEmpty()) {
+            Node currentNode = maxQueue.poll();
+            for(Edge edge : currentNode.getOutgoingEdges()) {
+                if(Math.min(currentNode.getCapacity(), edge.getCapacity()) > edge.getDest().getCapacity()) {
+                    edge.getDest().setCapacity(Math.min(currentNode.getCapacity(), edge.getCapacity()));
+                    edge.addFatherNodeToDestNode(currentNode);
+                    maxQueue.add(edge.getDest());
+                }
+            }
+        }
+
+        return calculateMaxFlowPath(graph, path);
     }
 }

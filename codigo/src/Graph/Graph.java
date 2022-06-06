@@ -12,7 +12,7 @@ import java.util.*;
 
 public class Graph {
 
-    private final Map<Node, List<Node>> graph = new HashMap<>();
+    private final HashMap<Node, List<Node>> graph = new HashMap<>();
     private final ArrayList<Node> nodes = new ArrayList<>();
 
     public void addEdge(Node source, Node destination, int capacity, int duration, boolean biDirectional) {
@@ -146,6 +146,6 @@ public class Graph {
             }
         }
 
-        residualGraph.addNodesToList();
+        residualGraph.getNodes().addAll(residualGraph.getGraph().keySet());
     }
 }
