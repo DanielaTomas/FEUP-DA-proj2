@@ -1,20 +1,21 @@
 package Graph;
-
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Scanner;
-import Utils.Utils;
-
 import java.util.*;
 
+//! Class Graph
 public class Graph {
 
     private final HashMap<Node, List<Node>> graph = new HashMap<>();
     private final ArrayList<Node> nodes = new ArrayList<>();
 
+    //! Add edge
+    //!
+    //! \param source node
+    //! \param destination node
+    //! \param capacity
+    //! \param duration
+    //! \param bidirectional corresponding bool
     public void addEdge(Node source, Node destination, int capacity, int duration, boolean biDirectional) {
 
         Edge edge = new Edge(source, destination, capacity, duration);
@@ -33,11 +34,14 @@ public class Graph {
             graph.get(destination).add(source);
         }
     }
-
+    //! Add nodes to list
+    //!
     public void addNodesToList() {
         this.nodes.addAll(this.graph.keySet());
     }
-
+    //! Verifies if the graph contains a vertex or not
+    //!
+    //! \param vertex
     public void hasVertex(Node vertex) {
         if(graph.containsKey(vertex)) {
             System.out.println("The Graph contains " + vertex + " as a vertex");
@@ -45,7 +49,10 @@ public class Graph {
             System.out.println("The Graph does not contain " + vertex + " as a vertex");
         }
     }
-
+    //! Verifies if the graph contains an edge or not
+    //!
+    //! \param source node
+    //! \param destination node
     public void hasEdge(Node source, Node destination) {
         if(graph.get(source).contains(destination)) {
             System.out.println("The Graph has an edge between " + source + " and " + destination);
@@ -53,7 +60,9 @@ public class Graph {
             System.out.println("The Graph has no edge between " + source + " and " + destination);
         }
     }
-
+    //! Print graph
+    //!
+    //! \return string
     public String printGraph() {
 
         System.out.println(this.graph.size());
@@ -69,11 +78,14 @@ public class Graph {
         }
         return builder.toString();
     }
-
+    //! Add node
+    //!
+    //! \param vertex
     private void addNode(Node vertex) {
         graph.put(vertex, new LinkedList<>());
     }
-
+    //! Print edges
+    //!
     public void printEdges() {
 
         for(Node node : this.graph.keySet()) {
@@ -84,7 +96,10 @@ public class Graph {
             System.out.println("=============");
         }
     }
-
+    //! Search node
+    //!
+    //! \param node value
+    //! \return node
     public Node searchNode(int val) {
 
         for(Node node: this.graph.keySet()) {
@@ -94,19 +109,27 @@ public class Graph {
         }
         return null;
     }
-
+    //! Get graph
+    //!
+    //! \return graph
     public Map<Node, List<Node>> getGraph() {
         return graph;
     }
-
+    //! Get nodes
+    //!
+    //! \return nodes
     public ArrayList<Node> getNodes() {
         return nodes;
     }
-
+    //! Add node to array
+    //!
+    //! \param node
     public void addNodeToArray(Node node) {
         this.nodes.add(node);
     }
-
+    //! Get edge
+    //!
+    //! \return edge
     public Edge getEdge(Node source, Node dest) {
 
         for(Edge edge : source.getOutgoingEdges()) {
@@ -116,7 +139,9 @@ public class Graph {
         }
         return null;
     }
-
+    //! Create residual graph
+    //!
+    //! \param graph
     public void createResidualGraph(Graph residualGraph) {
 
         for(Node source: this.getGraph().keySet()) {
@@ -138,10 +163,10 @@ public class Graph {
                     residualGraph.addEdge(rDest, rSource, edge.getCapacity(), edge.getDuration(), false);
 
                     Edge prevCurr = getEdge(rDest, rSource);
-                    prevCurr.setFlow(edge.getCapacity());
+                    prevCurr.setFlow(0);
 
                     Edge currPrev = getEdge(rSource, rDest);
-                    currPrev.setFlow(0);
+                    currPrev.setFlow(edge.getCapacity());
                 }
             }
         }
